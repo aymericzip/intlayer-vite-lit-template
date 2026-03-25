@@ -1,7 +1,7 @@
-import { getLocaleName } from 'intlayer';
-import { css, html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import { useLocale } from 'lit-intlayer';
+import { getLocaleName } from "intlayer";
+import { css, html, LitElement } from "lit";
+import { customElement } from "lit/decorators.js";
+import { useLocale } from "lit-intlayer";
 
 /**
  * `<locale-switcher>` — dropdown to switch the application locale.
@@ -9,27 +9,24 @@ import { useLocale } from 'lit-intlayer';
  * Uses `useLocale` ReactiveController so the element re-renders whenever
  * the locale changes anywhere in the app.
  */
-@customElement('locale-switcher')
+@customElement("locale-switcher")
 export class LocaleSwitcher extends LitElement {
   private locale = useLocale(this);
 
   private _onChange(e: Event) {
     const select = e.target as HTMLSelectElement;
-    this.locale.setLocale(select.value as any);
+    this.locale.setLocale(select.value);
   }
 
   override render() {
     return html`
-      <select
-        aria-label="Language"
-        @change=${this._onChange}
-      >
+      <select aria-label="Language" @change=${this._onChange}>
         ${this.locale.availableLocales.map(
           (loc) => html`
             <option value=${loc} ?selected=${loc === this.locale.locale}>
               ${getLocaleName(loc)}
             </option>
-          `
+          `,
         )}
       </select>
     `;
@@ -55,6 +52,6 @@ export class LocaleSwitcher extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'locale-switcher': LocaleSwitcher;
+    "locale-switcher": LocaleSwitcher;
   }
 }

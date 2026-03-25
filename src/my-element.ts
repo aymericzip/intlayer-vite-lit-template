@@ -1,10 +1,11 @@
-import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { compileMarkdown, useIntlayer } from 'lit-intlayer';
-import heroImg from './assets/hero.png';
-import litLogo from './assets/lit.svg';
-import viteLogo from './assets/vite.svg';
+import { css, html, LitElement } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import { useIntlayer } from "lit-intlayer";
+import heroImg from "./assets/hero.png";
+import litLogo from "./assets/lit.svg";
+import viteLogo from "./assets/vite.svg";
+import { compileMarkdown } from "lit-intlayer/markdown";
 
 /**
  * Root demo element for the Vite + Lit + Intlayer example.
@@ -15,14 +16,14 @@ import viteLogo from './assets/vite.svg';
  * - `md()` markdown content rendered via compileMarkdown + unsafeHTML
  * - Locale switching via the `<locale-switcher>` element
  */
-@customElement('my-element')
+@customElement("my-element")
 export class MyElement extends LitElement {
   @property({ type: Number })
   count = 0;
 
   // useIntlayer adds itself as a ReactiveController — the element
   // automatically re-renders when the locale changes.
-  private content = useIntlayer(this, 'app');
+  private content = useIntlayer("app").observe(this);
 
   private _onClick() {
     this.count++;
@@ -35,8 +36,16 @@ export class MyElement extends LitElement {
       <section id="center">
         <div class="hero">
           <img src=${heroImg} class="base" width="170" height="179" alt="" />
-          <img src=${litLogo} class="framework" alt=${content.litLogoLabel.value} />
-          <img src=${viteLogo} class="vite" alt=${content.viteLogoLabel.value} />
+          <img
+            src=${litLogo}
+            class="framework"
+            alt=${content.litLogoLabel.value}
+          />
+          <img
+            src=${viteLogo}
+            class="vite"
+            alt=${content.viteLogoLabel.value}
+          />
         </div>
 
         <div>
@@ -109,9 +118,7 @@ export class MyElement extends LitElement {
       <div class="ticks"></div>
       <section id="spacer"></section>
 
-      <footer class="read-the-docs">
-        ${content.readTheDocs}
-      </footer>
+      <footer class="read-the-docs">${content.readTheDocs}</footer>
     `;
   }
 
@@ -127,11 +134,10 @@ export class MyElement extends LitElement {
       --accent-border: rgba(170, 59, 255, 0.5);
       --social-bg: rgba(244, 243, 236, 0.5);
       --shadow:
-        rgba(0, 0, 0, 0.1) 0 10px 15px -3px,
-        rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+        rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-      --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-      --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+      --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+      --heading: system-ui, "Segoe UI", Roboto, sans-serif;
       --mono: ui-monospace, Consolas, monospace;
 
       font: 18px/145% var(--sans);
@@ -362,7 +368,7 @@ export class MyElement extends LitElement {
 
     .ticks::before,
     .ticks::after {
-      content: '';
+      content: "";
       position: absolute;
       top: -4.5px;
       border: 5px solid transparent;
@@ -440,6 +446,6 @@ export class MyElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'my-element': MyElement;
+    "my-element": MyElement;
   }
 }
