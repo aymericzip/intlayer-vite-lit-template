@@ -10,14 +10,14 @@
     "start:editor": "bun intlayer-editor start -e development --with 'vite dev'"
   },
   "dependencies": {
-    "intlayer": "latest",
+    "intlayer": "9.0.0-canary.12",
     "lit": "^3.3.2",
-    "lit-intlayer": "latest"
+    "lit-intlayer": "9.0.0-canary.12"
   },
   "devDependencies": {
-    "intlayer-editor": "latest",
+    "intlayer-editor": "9.0.0-canary.12",
     "typescript": "6.0.2",
     "vite": "8.0.2",
-    "vite-intlayer": "latest"
+    "vite-intlayer": "9.0.0-canary.12"
   }
 }
